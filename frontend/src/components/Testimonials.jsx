@@ -4,172 +4,145 @@ function Testimonials() {
   const reviews = [
     {
       id: 1,
-      text: "From check-in to check-out, everything was smooth. Hospitality was top class and the location is perfect.",
-      author: "Rahul Sharma",
+      title: "Exceptional Stay & Service",
+      text: "I loved everything about this hotel, from room types, customer service, specially house keeping was on top level and facilities to the serene pool area and gym facility. I will recommend others for sure.",
+      author: "Mr. Satish K",
+      meta: "Business Trip • 3 Nights",
     },
     {
       id: 2,
-      text: "Amazing experience! The staff was very helpful and the rooms were clean.",
-      author: "Priya Patel",
+      title: "Warm, Welcoming & Comfortable",
+      text: "Wonderful stay at Dhaneshwari Guestline – highly recommend! The staff was exceptionally welcoming and went out of their way to ensure I had a comfortable stay from start to finish.",
+      author: "Mr. Pavan Dahale",
+      meta: "Solo Traveller • Weekend",
     },
     {
       id: 3,
-      text: "Beautiful property with great amenities. Will definitely come back.",
-      author: "Amit Kumar",
+      title: "Professional Staff & Prime Location",
+      text: "Wonderful experience. The staff was very helpful and professional. Rooms are well maintained and the hotel is in a prime location, close to major temples and attractions.",
+      author: "Mr. Anand",
+      meta: "Family Visit • 2 Nights",
     },
     {
       id: 4,
-      text: "Excellent service and wonderful location. Highly recommended!",
-      author: "Neha Singh",
-    },
-    {
-      id: 5,
-      text: "Perfect stay for families. Kids loved the pool and activities.",
-      author: "Vikram Mehta",
-    },
-    {
-      id: 6,
-      text: "Luxurious experience with attention to every detail. Five stars!",
-      author: "Anjali Gupta",
+      title: "Feels Like A Second Home",
+      text: "Amazing service and great hospitality. The team made us feel at home and helped us with local guidance and temple visits. We will definitely visit again.",
+      author: "Mr. Rahul",
+      meta: "Family Trip • 4 Nights",
     },
   ];
 
-  const [centerIndex, setCenterIndex] = useState(2); // Start with 3rd review in center
-
-  // Get 3 reviews to display with current center
-  const getVisibleReviews = () => {
-    const totalReviews = reviews.length;
-    const prevIndex = (centerIndex - 1 + totalReviews) % totalReviews;
-    const nextIndex = (centerIndex + 1) % totalReviews;
-
-    return [reviews[prevIndex], reviews[centerIndex], reviews[nextIndex]];
-  };
+  const [index, setIndex] = useState(0);
 
   const next = () => {
-    setCenterIndex((prev) => (prev + 1) % reviews.length);
+    setIndex((prev) => (prev + 1) % reviews.length);
   };
 
   const prev = () => {
-    setCenterIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
-  const goToReview = (index) => {
-    setCenterIndex(index);
-  };
-
-  const visibleReviews = getVisibleReviews();
+  const visible = [
+    reviews[index % reviews.length],
+    reviews[(index + 1) % reviews.length],
+    reviews[(index + 2) % reviews.length],
+  ];
 
   return (
-    <section className="py-16 px-4 text-center ">
-      <h2 className="mb-12 text-3xl md:text-4xl font-bold text-gray-800">
-        What Our Guests Say
-      </h2>
+    <section className="py-20 bg-gradient-to-r from-[#f6efe6] via-[#f2e6d8] to-[#f6efe6]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <p className="text-sm uppercase tracking-[0.3em] text-amber-600">
+            Guest Experiences
+          </p>
+          <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-[#3c2e23]">
+            What Our Guests Say
+          </h2>
+          <p className="mt-3 text-sm md:text-base text-[#7b6a57] max-w-2xl mx-auto">
+            Real stories from guests who chose Dhaneshwari Guestline for their
+            Kashi Vishwanath visit and Varanasi stay.
+          </p>
+        </div>
 
-      <div className="flex items-center justify-center gap-4 max-w-7xl mx-auto">
-        {/* Previous Button */}
-        <button
-          onClick={prev}
-          className="text-2xl w-12 h-12 rounded-full flex items-center justify-center
-            text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300"
-          aria-label="Previous testimonial"
-        >
-          ◀
-        </button>
+        <div className="flex items-center justify-center gap-4 md:gap-6">
+          {/* Left Arrow */}
+          <button
+            onClick={prev}
+            className="hidden md:flex w-10 h-10 rounded-full border border-amber-500 text-amber-600 items-center justify-center hover:bg-amber-500 hover:text-white transition shadow-sm bg-white/70 backdrop-blur"
+            aria-label="Previous testimonial"
+          >
+            ❮
+          </button>
 
-        {/* Cards Container */}
-        <div className="flex items-center justify-center gap-8 overflow-hidden py-8 px-2">
-          {visibleReviews.map((review, index) => {
-            const isCenter = index === 1;
-
-            return (
-              <div
+          {/* Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full">
+            {visible.map((review) => (
+              <article
                 key={review.id}
-                className={`
-    bg-white shadow-lg transition-all duration-500 ease-in-out
-    flex flex-col justify-center items-center text-center
-    rounded-full
-    ${
-      isCenter
-        ? "w-72 h-72 md:w-80 md:h-80 p-8 scale-105 z-10 shadow-xl ring-2 ring-black-500"
-        : "w-60 h-60 md:w-64 md:h-64 p-6 scale-95 opacity-80 shadow-md"
-    }
-  `}
+                className="relative rounded-2xl bg-white/90 backdrop-blur-sm shadow-[0_18px_45px_rgba(15,23,42,0.10)] px-6 py-8 md:px-7 md:py-9 border border-[#f0e2d3]"
               >
-                {/* Avatar Circle */}
-                <div className="mb-4">
-                  <div
-                    className={`
-                    rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-200
-                    ${isCenter ? "w-20 h-20 text-3xl" : "w-16 h-16 text-2xl"}
-                  `}
-                  >
-                    👤
+                {/* Quote badge */}
+                <div className="absolute -top-6 left-8">
+                  <div className="w-11 h-11 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-md">
+                    <span className="text-2xl leading-none">“</span>
                   </div>
                 </div>
 
-                {/* Rating Stars */}
-                <div className="flex text-yellow-400 text-sm mb-3 gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i}>★</span>
-                  ))}
-                </div>
+                {/* Spacer to align content nicely */}
+                <div className="mt-4 mb-2" />
 
-                {/* Review Text */}
-                <p
-                  className={`
-                  text-gray-700 leading-relaxed mb-3
-                  ${isCenter ? "text-sm" : "text-xs"}
-                `}
-                >
-                  "{review.text}"
+                {/* Title */}
+                <h3 className="text-base md:text-lg font-semibold text-[#3e2f23] mb-3">
+                  {review.title}
+                </h3>
+
+                {/* Text */}
+                <p className="text-sm md:text-[15px] leading-relaxed text-[#6f5d4a]">
+                  {review.text}
                 </p>
 
-                {/* Author Name - only show on center card */}
-                {isCenter && (
-                  <p className="text-sm font-semibold text-gray-600 mt-2">
-                    - {review.author}
+                {/* Divider + guest info */}
+                <div className="mt-8 pt-5 border-t border-[#f0e2d3] flex flex-col gap-1">
+                  <p className="text-sm font-semibold text-[#3e2f23]">
+                    {review.author}
                   </p>
-                )}
-              </div>
-            );
-          })}
+                  {review.meta && (
+                    <p className="text-xs text-[#8e7a64]">{review.meta}</p>
+                  )}
+                  <div className="mt-3 h-[2px] w-24 bg-gradient-to-r from-[#b7905b] via-[#d7aa6b] to-transparent rounded-full" />
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Right Arrow (desktop) */}
+          <button
+            onClick={next}
+            className="hidden md:flex w-10 h-10 rounded-full border border-amber-500 text-amber-600 items-center justify-center hover:bg-amber-500 hover:text-white transition shadow-sm bg-white/70 backdrop-blur"
+            aria-label="Next testimonial"
+          >
+            ❯
+          </button>
         </div>
 
-        {/* Next Button */}
-        <button
-          onClick={next}
-          className="text-2xl w-12 h-12 rounded-full flex items-center justify-center
-            text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300"
-          aria-label="Next testimonial"
-        >
-          ▶
-        </button>
-      </div>
-
-      {/* Navigation Dots */}
-      <div className="mt-10 flex justify-center items-center gap-3">
-        {reviews.map((_, index) => (
+        {/* Mobile navigation below cards */}
+        <div className="mt-8 flex items-center justify-center gap-4 md:hidden">
           <button
-            key={index}
-            onClick={() => goToReview(index)}
-            className={`
-              rounded-full transition-all duration-300 
-              focus:outline-none focus:ring-2 focus:ring-green-400
-              ${
-                centerIndex === index
-                  ? "bg-black w-8 h-3"
-                  : "bg-black hover:bg-green-400 w-3 h-3"
-              }
-            `}
-            aria-label={`Go to review ${index + 1}`}
-          />
-        ))}
+            onClick={prev}
+            className="w-9 h-9 rounded-full border border-amber-500 text-amber-600 flex items-center justify-center hover:bg-amber-500 hover:text-white transition shadow-sm bg-white/80 backdrop-blur"
+            aria-label="Previous testimonial"
+          >
+            ❮
+          </button>
+          <button
+            onClick={next}
+            className="w-9 h-9 rounded-full border border-amber-500 text-amber-600 flex items-center justify-center hover:bg-amber-500 hover:text-white transition shadow-sm bg-white/80 backdrop-blur"
+            aria-label="Next testimonial"
+          >
+            ❯
+          </button>
+        </div>
       </div>
-
-      {/* Current Review Indicator */}
-      <p className="mt-4 text-sm text-gray-500">
-        Currently viewing: {centerIndex + 1} of {reviews.length} reviews
-      </p>
     </section>
   );
 }
